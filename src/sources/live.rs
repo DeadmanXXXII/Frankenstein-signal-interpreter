@@ -1,5 +1,5 @@
 use super::RawSignal;
-use rtlsdr_rs::RtlSdr;
+use seify_rtlsdr::RtlSdr;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::mpsc::{Receiver, Sender};
 use std::sync::Arc;
@@ -169,5 +169,5 @@ impl LiveCapture {
 /// Best-effort device count so the GUI can show "no dongle detected" instead
 /// of a raw driver error.
 pub fn device_count() -> usize {
-    rtlsdr_rs::RtlSdr::device_count().unwrap_or(0)
+    seify_rtlsdr::enumerate().map(|devices| devices.len()).unwrap_or(0)
 }
