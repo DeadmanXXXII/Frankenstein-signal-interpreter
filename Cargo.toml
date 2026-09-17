@@ -15,4 +15,10 @@ hound = "3.5"
 image = { version = "0.25", default-features = false, features = ["png"] }
 # Pure-Rust RTL-SDR driver (needs libusb at runtime). Receive-only — this
 # crate has no transmit path and none is added on top of it.
-rtlsdr-rs = "0.1.4"
+# NOTE: previously pinned as `rtlsdr-rs = "0.1.4"`, which is the wrong
+# crate entirely (an abandoned 2018 bindgen binding that only ever
+# published 0.1.0 — that version mismatch was breaking `cargo build`
+# on every platform). `seify-rtlsdr` is the pure-Rust/rusb driver this
+# code's API (RtlSdr::open/reset_buffer/read_sync/set_center_freq/
+# set_sample_rate) actually matches.
+seify-rtlsdr = "0.0.4"
