@@ -6,13 +6,13 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="Frankenstein.SignalInterpreter"
-    Publisher="CN=REPLACE_WITH_YOUR_CERT_SUBJECT"
+    Name="Frankenstein signal-interpreter"
+    Publisher="CN=BB6CF6A1-F89B-484C-85F4-1A7E35694B74"
     Version="1.0.0.0" />
 
   <Properties>
-    <DisplayName>Frankenstein Signal Interpreter</DisplayName>
-    <PublisherDisplayName>Corbel Tech</PublisherDisplayName>
+    <DisplayName>TMHP.com.Frankenstein signal-interpreter</DisplayName>
+    <PublisherDisplayName>@TMHP.com</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
     <Description>Receive-only SDR signal capture and decoding for public and amateur radio bands — NOAA APT, ADS-B, AIS, and HAM.</Description>
   </Properties>
@@ -26,9 +26,9 @@
   </Resources>
 
   <Applications>
-    <Application Id="Frankenstein" Executable="frankenstein.exe" EntryPoint="Windows.FullTrustApplication">
+    <Application Id="TMHP.com.Frankenstein signal-interpreter" Executable="frankenstein.exe" EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements
-        DisplayName="Frankenstein Signal Interpreter"
+        DisplayName="Frankenstein signal-interpreter"
         Description="Receive-only SDR capture and decoding for public/amateur bands."
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
