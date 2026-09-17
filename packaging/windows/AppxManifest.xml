@@ -11,7 +11,7 @@
     Version="1.0.0.0" />
 
   <Properties>
-    <DisplayName>TMHP.com.Frankenstein signal-interpreter</DisplayName>
+    <DisplayName>Frankenstein-signal-interpreter</DisplayName>
     <PublisherDisplayName>@TMHP.com</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
     <Description>Receive-only SDR signal capture and decoding for public and amateur radio bands — NOAA APT, ADS-B, AIS, and HAM.</Description>
@@ -26,9 +26,9 @@
   </Resources>
 
   <Applications>
-    <Application Id="TMHP.com.Frankenstein signal-interpreter" Executable="frankenstein.exe" EntryPoint="Windows.FullTrustApplication">
+    <Application Id="TMHP.com.Frankenstein-signal-interpreter" Executable="frankenstein.exe" EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements
-        DisplayName="Frankenstein signal-interpreter"
+        DisplayName="Frankenstein-signal-interpreter"
         Description="Receive-only SDR capture and decoding for public/amateur bands."
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
