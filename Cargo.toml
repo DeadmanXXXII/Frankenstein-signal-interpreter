@@ -15,4 +15,4 @@ hound = "3.5"
 image = { version = "0.25", default-features = false, features = ["png"] }
 # Pure-Rust RTL-SDR driver (needs libusb at runtime). Receive-only — this
 # crate has no transmit path and none is added on top of it.
-rtlsdr-rs = "0.2"
+rtlsdr-rs = "0.1.0"
