@@ -1,5 +1,5 @@
 [package]
-name = "Frankenstein signal-interpreter"
+name = "Frankenstein-signal-interpreter"
 version = "0.1.0"
 edition = "2021"
 description = "Receive-only SDR capture and decoding for public/amateur bands — NOAA APT, ADS-B, AIS, HAM."
