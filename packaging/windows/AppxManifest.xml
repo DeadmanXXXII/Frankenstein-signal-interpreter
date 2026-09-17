@@ -6,7 +6,7 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="Frankenstein-signal-interpreter"
+    Name="TMHP.com.Frankenstein-signal-interpreter"
     Publisher="CN=BB6CF6A1-F89B-484C-85F4-1A7E35694B74"
     Version="1.0.0.0" />
 
