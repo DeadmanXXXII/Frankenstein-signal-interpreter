@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap rescap">
+
+  <Identity
+    Name="Frankenstein.SignalInterpreter"
+    Publisher="CN=REPLACE_WITH_YOUR_CERT_SUBJECT"
+    Version="1.0.0.0" />
+
+  <Properties>
+    <DisplayName>Frankenstein Signal Interpreter</DisplayName>
+    <PublisherDisplayName>Corbel Tech</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+    <Description>Receive-only SDR signal capture and decoding for public and amateur radio bands — NOAA APT, ADS-B, AIS, and HAM.</Description>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.22621.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
+
+  <Applications>
+    <Application Id="Frankenstein" Executable="frankenstein.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements
+        DisplayName="Frankenstein Signal Interpreter"
+        Description="Receive-only SDR capture and decoding for public/amateur bands."
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        BackgroundColor="#0d0f0b">
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+
+  <!--
+    This app is receive-only. It needs the RTL-SDR USB dongle (a generic
+    USB device, hence the broadFileSystemAccess-free "usb" restricted
+    capability below) and nothing else — no network, no microphone, no
+    location. Requesting only what the app actually uses keeps Store review
+    straightforward and keeps the tool honest about what it does.
+  -->
+  <Capabilities>
+    <rescap:Capability Name="usb" />
+  </Capabilities>
+</Package>
