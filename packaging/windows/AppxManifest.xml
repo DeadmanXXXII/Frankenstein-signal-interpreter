@@ -26,7 +26,7 @@
   </Resources>
 
   <Applications>
-    <Application Id="TMHP.com.Frankensteinsignalinterpreter" Executable="frankenstein.exe" EntryPoint="Windows.FullTrustApplication">
+    <Application Id="FrankensteinSignalInterpreter" Executable="frankenstein.exe" EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements
         DisplayName="Frankenstein-signal-interpreter"
         Description="Receive-only SDR capture and decoding for public/amateur bands."
@@ -45,6 +45,7 @@
     straightforward and keeps the tool honest about what it does.
   -->
   <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
     <rescap:Capability Name="usb" />
   </Capabilities>
 </Package>
