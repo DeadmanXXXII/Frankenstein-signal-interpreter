@@ -127,16 +127,32 @@ impl LiveCapture {
         let stop_flag = Arc::new(AtomicBool::new(false));
         let thread_stop = stop_flag.clone();
         let (tx, rx): (Sender<RawSignal>, Receiver<RawSignal>) = std::sync::mpsc::channel();
-
-        let mut sdr = RtlSdr::open(device_index).map_err(|_| LiveCaptureError::NoDeviceFound)?;
-        sdr.set_center_freq(preset.center_freq_hz)
-            .map_err(|e| LiveCaptureError::Driver(format!("{e:?}")))?;
-        sdr.set_sample_rate(preset.sample_rate_hz)
-            .map_err(|e| LiveCaptureError::Driver(format!("{e:?}")))?;
-        sdr.reset_buffer()
-            .map_err(|e| LiveCaptureError::Driver(format!("{e:?}")))?;
+        // seify-rtlsdr's `RtlSdr` isn't `Send` (its tuner is stored as a
+        // non-Send `Box<dyn Tuner>`), so it can never be moved into another
+        // thread as a value. Instead, open and configure it *inside* the
+        // capture thread, and use this one-shot handshake channel to report
+        // success/failure back so `start()` can still fail fast exactly as
+        // before.
+        let (ready_tx, ready_rx) = std::sync::mpsc::channel::<Result<(), LiveCaptureError>>();
 
         thread::spawn(move || {
+            let mut sdr = match RtlSdr::open(device_index) {
+                Ok(sdr) => sdr,
+                Err(_) => {
+                    let _ = ready_tx.send(Err(LiveCaptureError::NoDeviceFound));
+                    return;
+                }
+            };
+            if let Err(e) = sdr
+                .set_center_freq(preset.center_freq_hz)
+                .and_then(|_| sdr.set_sample_rate(preset.sample_rate_hz))
+                .and_then(|_| sdr.reset_buffer())
+            {
+                let _ = ready_tx.send(Err(LiveCaptureError::Driver(format!("{e:?}"))));
+                return;
+            }
+            let _ = ready_tx.send(Ok(()));
+
             // 0.5s worth of interleaved u8 I/Q samples per read.
             let chunk_len = (preset.sample_rate_hz as usize / 2) * 2;
             let mut buf = vec![0u8; chunk_len];
@@ -158,7 +174,14 @@ impl LiveCapture {
             }
         });
 
-        Ok(Self { stop_flag, rx })
+        // Block until the capture thread has opened and configured the
+        // dongle (or failed to), so callers still see open/config errors
+        // synchronously from `start()`.
+        match ready_rx.recv() {
+            Ok(Ok(())) => Ok(Self { stop_flag, rx }),
+            Ok(Err(e)) => Err(e),
+            Err(_) => Err(LiveCaptureError::NoDeviceFound), // thread died before replying
+        }
     }
 
     pub fn stop(&self) {
